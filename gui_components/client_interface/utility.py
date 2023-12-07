@@ -1,5 +1,7 @@
 from typing import Optional, Tuple, Union
 from customtkinter import *
+from .bidding_input_dialog import BiddingInputDialog
+from .selling_input_dialog import SellingInputDialog
 
 
 class Utility(CTkFrame):
@@ -21,14 +23,20 @@ class Utility(CTkFrame):
         self.button_holder = CTkFrame(master=self, fg_color="transparent")
         self.button_holder.grid(row=0, column=0, padx=(8, 0), sticky="ew")
         
-        self.bid_button = CTkButton(master=self.button_holder, width=64, text="Bid")
+        self.bid_button = CTkButton(master=self.button_holder, width=64, text="Bid", command=lambda: self.bid_input())
         self.bid_button.grid(row=0, column=0, padx=0, pady=8)
         
-        self.sell_button = CTkButton(master=self.button_holder, width=64, text="Sell")
+        self.sell_button = CTkButton(master=self.button_holder, width=64, text="Sell", command=lambda: self.sell_input())
         self.sell_button.grid(row=0, column=1, padx=(8, 0), pady=8)
         
         self.timer = CTkLabel(master=self, text=f"Time Left: 00:00:00")
         self.timer.grid(row=0, column=1, padx=8, sticky="e")
+        
+    def bid_input(self):
+        dialog = BiddingInputDialog(title="BIDDING...")    
+        
+    def sell_input(self):
+        dialog = SellingInputDialog(title="SELLING...")    
 
 
 if __name__ == '__main__':
