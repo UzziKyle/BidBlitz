@@ -9,8 +9,8 @@ class ServerInterface(CTk):
         super().__init__(fg_color, **kwargs)
         
         self.title('SERVER')
-        self.geometry('300x400')
-        # self.minsize(625, 300)
+        self.geometry('375x500')
+        self.minsize(width=375, height=250)
         set_appearance_mode('System')
         
         self.grid_columnconfigure(0, weight=1)
@@ -19,6 +19,7 @@ class ServerInterface(CTk):
         self.window = Window(self, corner_radius=8)
         self.window.grid(row=0, column=0, padx=8, pady=(8, 0), sticky="nsew")
         
+        # TODO center position this
         self.countdown_timer = CountdownTimer(self)
         self.countdown_timer.grid(row=1, column=0, padx=8, sticky="nsew")
         

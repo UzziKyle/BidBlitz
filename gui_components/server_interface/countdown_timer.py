@@ -40,8 +40,11 @@ class CountdownTimer(CTkFrame):
         self.second_entry = CTkEntry(master=self, width=32, textvariable=self.second, justify="center")
         self.second_entry.grid(row=0, column=5, padx=(4, 0), pady=8, sticky="ew")
         
-        self.submit_button = CTkButton(master=self, width=32, text="Submit")
-        self.submit_button.grid(row=0, column=6, padx=(16, 8), pady=8, sticky="ew")
+        self.start_button = CTkButton(master=self, width=64, text="Start")
+        self.start_button.grid(row=0, column=6, padx=(16, 0), pady=8, sticky="ew")
+        
+        self.stop_button = CTkButton(master=self, width=64, text="Stop")
+        self.stop_button.grid(row=0, column=7, padx=(4, 16), pady=8, sticky="ew")
         
     def get(self):
         # the input provided by the user is
