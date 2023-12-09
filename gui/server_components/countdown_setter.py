@@ -2,7 +2,7 @@ from typing import Optional, Tuple, Union
 from customtkinter import *
 
 
-class CountdownTimer(CTkFrame):
+class CountdownSetter(CTkFrame):
     def __init__(self, master: any, 
                  width: int = 200, height: int = 200, 
                  corner_radius: int | str | None = 0, 
@@ -107,7 +107,7 @@ if __name__ == '__main__':
                     
             self.grid_columnconfigure(0, weight=1)
             
-            self.countdown_timer = CountdownTimer(master=self)
+            self.countdown_timer = CountdownSetter(master=self)
             self.countdown_timer.grid(row=0, column=0, padx=10, pady=10)
         
         
