@@ -2,6 +2,8 @@ from typing import Optional, Tuple, Union
 from customtkinter import *
 from .bidding_input_dialog import BiddingInputDialog
 from .selling_input_dialog import SellingInputDialog
+from threading import Thread, Event
+from time import sleep
 
 
 class Utility(CTkFrame):
@@ -23,20 +25,50 @@ class Utility(CTkFrame):
         self.button_holder = CTkFrame(master=self, fg_color="transparent")
         self.button_holder.grid(row=0, column=0, padx=(8, 0), sticky="ew")
         
-        self.bid_button = CTkButton(master=self.button_holder, width=64, text="Bid", command=lambda: self.bid_input())
+        self.bid_button = CTkButton(master=self.button_holder, width=64, text="Bid", command=lambda: self.bid_input(), state="disabled")
         self.bid_button.grid(row=0, column=0, padx=0, pady=8)
         
-        self.sell_button = CTkButton(master=self.button_holder, width=64, text="Sell", command=lambda: self.sell_input())
+        self.sell_button = CTkButton(master=self.button_holder, width=64, text="Sell", command=lambda: self.sell_input(), state="disabled")
         self.sell_button.grid(row=0, column=1, padx=(8, 0), pady=8)
         
         self.timer = CTkLabel(master=self, text=f"Time Left: 00:00:00")
         self.timer.grid(row=0, column=1, padx=8, sticky="e")
         
+        self.timer_is_on = Event()
+        
     def bid_input(self):
         dialog = BiddingInputDialog(title="BIDDING...")    
         
     def sell_input(self):
-        dialog = SellingInputDialog(title="SELLING...")    
+        dialog = SellingInputDialog(title="SELLING...")  
+          
+    def start_countdown(self, temp: int) -> None:        
+        while temp >-1:
+            if not self.timer_is_on.is_set():
+                break
+                        
+            # divmod(firstvalue = temp//60, secondvalue = temp%60)
+            mins, secs = divmod(temp,60) 
+            hours = 0
+            
+            if mins > 60:
+                # divmod(firstvalue = temp//60, secondvalue 
+                # = temp%60)
+                hours, mins = divmod(mins, 60)
+            
+            self.timer.configure(text=f'Time Left: {hours:02d}:{mins:02d}:{secs:02d}')
+                            
+            # after every one sec the value of temp will be decremented
+            # by one
+            sleep(1)
+            temp -= 1     
+            
+        self.timer_is_on.clear()
+                        
+    def stop_countdown(self):
+        self.timer_is_on.clear()
+        self.timer.configure(text=f"Time Left: 00:00:00")
+                       
 
 
 if __name__ == '__main__':

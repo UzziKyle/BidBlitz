@@ -6,6 +6,7 @@ class Server(BanyanBase):
     def __init__(self, ):
         super(Server, self).__init__(process_name="Server")
         
+        self.set_subscriber_topic('timeout')
         self.set_subscriber_topic('server')
         
         self.for_sale = {}
@@ -22,8 +23,10 @@ class Server(BanyanBase):
             }
         '''
         
-        self.interface = ServerInterface()
+        self.interface = ServerInterface(publish_payload=self.publish_payload)
         self.interface.bind("<Destroy>", self.on_destroy)
+        self.publish_payload(payload={"temp": 160}, topic="timer")
+        self.publish_payload(payload={"bidder": "Kyle"}, topic="bidder")
         self.interface.mainloop()
         
         self.receive_loop()
