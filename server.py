@@ -6,7 +6,7 @@ class Server(BanyanBase):
     def __init__(self, ):
         super(Server, self).__init__(process_name="Server")
         
-        self.set_subscriber_topic('for_sale')
+        self.set_subscriber_topic('server')
         
         self.for_sale = {}
         self.items = []

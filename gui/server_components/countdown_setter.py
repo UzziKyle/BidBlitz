@@ -55,49 +55,6 @@ class CountdownSetter(CTkFrame):
         temp = int(hour)*3600 + int(minute)*60 + int(second)
         
         return temp
-        
-        
-    # def countdown(self):
-    #     try:
-    #         # the input provided by the user is
-    #         # stored in here :temp
-    #         hour = self.hour.get()
-    #         minute = self.minute.get()
-    #         second = self.second.get()
-    #         temp = int(hour)*3600 + int(minute)*60 + int(second)
-            
-    #     except:
-    #         print("Please input the right value")
-            
-    #     while temp >-1:
-            
-    #         # divmod(firstvalue = temp//60, secondvalue = temp%60)
-    #         mins,secs = divmod(temp,60) 
-    
-    #         # Converting the input entered in mins or secs to hours,
-    #         # mins ,secs(input = 110 min --> 120*60 = 6600 => 1hr :
-    #         # 50min: 0sec)
-    #         hours=0
-    #         if mins >60:
-                
-    #             # divmod(firstvalue = temp//60, secondvalue 
-    #             # = temp%60)
-    #             hours, mins = divmod(mins, 60)
-            
-    #         # using format () method to store the value up to 
-    #         # two decimal places
-            
-    #         self.timer_label.configure(text=f'Countdown: {hours:02d}:{mins:02d}:{secs:02d}')
-    
-    #         # updating the GUI window after decrementing the
-    #         # temp value every time
-
-    #         self.master.update()
-    #         time.sleep(1)
-            
-    #         # after every one sec the value of temp will be decremented
-    #         # by one
-    #         temp -= 1    
 
 
 if __name__ == '__main__':
