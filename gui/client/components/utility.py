@@ -40,11 +40,20 @@ class Utility(CTkFrame):
         dialog = BiddingInputDialog(title="BIDDING...")    
         
     def sell_input(self):
-        dialog = SellingInputDialog(title="SELLING...")  
-          
-    def start_countdown(self, temp: int) -> None:  
-        self.timer_is_on.set()
+        dialog = SellingInputDialog(title="SELLING...") 
         
+    def activate(self) -> None:
+        self.bid_button.configure(state="normal")
+        self.sell_button.configure(state="normal")
+        
+    def deactivate(self) -> None:
+        self.bid_button.configure(state="disabled")
+        self.sell_button.configure(state="disabled") 
+                 
+    def start_countdown(self, temp: int) -> None:
+        self.timer_is_on.set()
+        self.activate() 
+
         while temp >-1:
             if not self.timer_is_on.is_set():
                 break
@@ -66,9 +75,11 @@ class Utility(CTkFrame):
             temp -= 1     
             
         self.timer_is_on.clear()
+        self.deactivate()
                         
     def stop_countdown(self):
         self.timer_is_on.clear()
+        self.deactivate()
         self.timer.configure(text=f"Time Left: 00:00:00")
                        
 

@@ -33,12 +33,12 @@ class ServerInterface(CTk):
         self.countdown_setter.grid(row=2, column=0, padx=8, sticky="ew")
         
         self.countdown_setter.start_button.configure(command=lambda: self.start_button_functions() )
-        self.countdown_setter.stop_button.configure(command=lambda: self.stop_countdown())
+        # self.countdown_setter.stop_button.configure(command=lambda: self.stop_countdown())
         
     def start_button_functions(self):
-        Thread(target=self.start_countdown).start()
+        self.publish_payload(payload={"temp": self.countdown_setter.get()}, topic="timer")  # Sends signal to the clients
         
-        self.publish_payload(payload={"temp": self.countdown_setter.get()}, topic="timer")
+        Thread(target=self.start_countdown).start()
         
     def start_countdown(self) -> None:
         temp = self.countdown_setter.get()
@@ -66,9 +66,9 @@ class ServerInterface(CTk):
             
         self.timer_is_on.clear()
                         
-    def stop_countdown(self):
-        self.timer_is_on.clear()
-        self.timer.configure(text=f"Time Left: 00:00:00")
+    # def stop_countdown(self):
+    #     self.timer_is_on.clear()
+    #     self.timer.configure(text=f"Time Left: 00:00:00")
                        
         
 if __name__ == '__main__':

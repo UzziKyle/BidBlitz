@@ -1,5 +1,5 @@
 from python_banyan.banyan_base import BanyanBase
-from gui.server import ServerInterface
+from gui.server.interface import ServerInterface
 from threading import Thread
 from time import sleep
 import msgpack

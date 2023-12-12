@@ -1,5 +1,6 @@
 from typing import Optional, Tuple, Union
 from customtkinter import *
+from CTkListbox import *
 
 
 class Window(CTkFrame):
@@ -22,12 +23,12 @@ class Window(CTkFrame):
         self.window_label = CTkLabel(master=self, text=f"{text_label}", justify="center")
         self.window_label.grid(row=0, column=0, pady=(8, 0))
         
-        self.scrollable_window = CTkScrollableFrame(master=self, corner_radius=0, width=width, height=height)
-        self.scrollable_window._scrollbar.configure(height=0)
-        self.scrollable_window.grid(row=1, column=0, padx=8, pady=8, sticky="nsew")
+        self.list_box = CTkListbox(master=self, corner_radius=0, width=width, height=height)
+        self.list_box._scrollbar.configure(height=0)
+        self.list_box.grid(row=1, column=0, padx=8, pady=8, sticky="nsew")
         
-    def insert(self):
-        pass
+    def insert(self, message: str, row: int) -> None:
+        self.list_box.insert(index=row, option=message)
 
 
 if __name__ == '__main__':

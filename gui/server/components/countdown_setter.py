@@ -43,8 +43,8 @@ class CountdownSetter(CTkFrame):
         self.start_button = CTkButton(master=self, width=64, text="Start")
         self.start_button.grid(row=0, column=6, padx=(16, 0), pady=8, sticky="ew")
         
-        self.stop_button = CTkButton(master=self, width=64, text="Stop")
-        self.stop_button.grid(row=0, column=7, padx=(4, 16), pady=8, sticky="ew")
+        # self.stop_button = CTkButton(master=self, width=64, text="Stop")
+        # self.stop_button.grid(row=0, column=7, padx=(4, 16), pady=8, sticky="ew")
         
     def get(self):
         # the input provided by the user is
