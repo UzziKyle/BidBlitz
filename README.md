@@ -18,8 +18,9 @@ Create your GUI interface using TKinter, and write a multithreaded LAN-compatibl
 #### custom
 
 - banyan_logics (Banyan logics)
-- components (GUI components)
+- gui (GUI interface & components)
 - general_logics (general functions)
+- classes (for items & users)
 
 ## Project Setup
 
