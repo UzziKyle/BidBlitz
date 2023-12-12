@@ -1,6 +1,6 @@
 from typing import Optional, Tuple, Union
-from .client_components.utility import Utility
-from .client_components.window import Window
+from .components.utility import Utility
+from .components.window import Window
 from customtkinter import *
 
         
@@ -8,7 +8,6 @@ class ClientInterface(CTk):
     def __init__(self, fg_color: str | Tuple[str, str] | None = None, **kwargs):
         super().__init__(fg_color, **kwargs)
         
-        self.title('CLIENT')
         self.minsize(width=300, height=650)
         set_appearance_mode('System')
         

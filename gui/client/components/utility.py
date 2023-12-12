@@ -42,7 +42,9 @@ class Utility(CTkFrame):
     def sell_input(self):
         dialog = SellingInputDialog(title="SELLING...")  
           
-    def start_countdown(self, temp: int) -> None:        
+    def start_countdown(self, temp: int) -> None:  
+        self.timer_is_on.set()
+        
         while temp >-1:
             if not self.timer_is_on.is_set():
                 break

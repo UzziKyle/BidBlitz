@@ -15,8 +15,9 @@ class Window(CTkScrollableFrame):
         
         super().__init__(master, width, height, corner_radius, border_width, bg_color, fg_color, border_color, background_corner_colors, overwrite_preferred_drawing_method, **kwargs)
         
-    def insert(self):
-        pass
+    def insert(self, message: str, row: int) -> None:
+        new_message = CTkLabel(master=self, text=message)
+        new_message.grid(row=row, column=0, padx=8, sticky='w')
         
         
     # def countdown(self):

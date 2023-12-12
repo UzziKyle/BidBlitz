@@ -1,6 +1,6 @@
 from typing import Optional, Tuple, Union
-from .server_components.countdown_setter import CountdownSetter
-from .server_components.window import Window
+from .components.countdown_setter import CountdownSetter
+from .components.window import Window
 from customtkinter import *
 from time import sleep
 from threading import Thread, Event
