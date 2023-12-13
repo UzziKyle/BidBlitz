@@ -1,6 +1,7 @@
 from python_banyan.banyan_base import BanyanBase
 from gui.client.interface import ClientInterface
-from gui.client.components.username_input_dialog import UsernameInputDialog
+from gui.client.dialogs.username_input_dialog import UsernameInputDialog
+from gui.client.dialogs.selling_input_dialog import SellingInputDialog
 from threading import Thread
 from time import sleep
 import msgpack
@@ -22,6 +23,8 @@ class Client(BanyanBase):
         self.username_input_dialog.accept_button.configure(command=lambda: self.set_username())
         
         self.interface.bind("<Destroy>", self.on_destroy)
+        
+        self.interface.utility.set_sell_button_command(function=self.sell_button_function)
                 
         self.interface.withdraw()
         self.interface.after(5, self.get_message)
@@ -33,6 +36,10 @@ class Client(BanyanBase):
         self.interface.deiconify()
         self.interface.title(f'CLIENT: {self.username}')
         self.publish_payload(payload={'username': self.username}, topic='users')
+        
+    def sell_button_function(self):
+        dialog = SellingInputDialog(title="SELLING...") 
+
         
     def get_message(self):
         try:
@@ -50,7 +57,7 @@ class Client(BanyanBase):
             timer = Thread(target=self.interface.utility.start_countdown, args=(payload['temp'], ))
             
             timer.start()
-            
+                        
         # if topic == 'selling':
         #     print(f'Items you are SELLING: {payload["items"]}')
                 

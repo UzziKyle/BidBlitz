@@ -13,20 +13,6 @@ class Server(BanyanBase):
         self.set_subscriber_topic('users')
         self.set_subscriber_topic('server')
         
-        self.for_sale = {}
-        self.items = []
-        self.bidders = {}
-        '''
-            {
-                "item": {
-                    "bidders": {
-                        "name": username,
-                        "bid": amount,
-                    },
-                },
-            }
-        '''
-        
         self.number_of_messages = 0
         
         self.interface = ServerInterface(publish_payload=self.publish_payload)

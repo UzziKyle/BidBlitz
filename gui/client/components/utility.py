@@ -1,7 +1,5 @@
 from typing import Optional, Tuple, Union
 from customtkinter import *
-from .bidding_input_dialog import BiddingInputDialog
-from .selling_input_dialog import SellingInputDialog
 from threading import Thread, Event
 from time import sleep
 
@@ -28,7 +26,7 @@ class Utility(CTkFrame):
         self.bid_button = CTkButton(master=self.button_holder, width=64, text="Bid", command=lambda: self.bid_input(), state="disabled")
         self.bid_button.grid(row=0, column=0, padx=0, pady=8)
         
-        self.sell_button = CTkButton(master=self.button_holder, width=64, text="Sell", command=lambda: self.sell_input(), state="disabled")
+        self.sell_button = CTkButton(master=self.button_holder, width=64, text="Sell", state="disabled")
         self.sell_button.grid(row=0, column=1, padx=(8, 0), pady=8)
         
         self.timer = CTkLabel(master=self, text=f"Time Left: 00:00:00")
@@ -36,11 +34,11 @@ class Utility(CTkFrame):
         
         self.timer_is_on = Event()
         
-    def bid_input(self):
-        dialog = BiddingInputDialog(title="BIDDING...")    
+    def set_bid_button_command(self, function):
+        function()   
         
-    def sell_input(self):
-        dialog = SellingInputDialog(title="SELLING...") 
+    def set_sell_button_command(self, function):
+        self.sell_button.configure(command=lambda: function())
         
     def activate(self) -> None:
         self.bid_button.configure(state="normal")

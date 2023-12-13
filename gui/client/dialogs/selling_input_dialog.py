@@ -23,6 +23,12 @@ class SellingInputDialog(CTkToplevel):
         self.submit_button = CTkButton(master=self, width=80, text="Accept", corner_radius=0)
         self.submit_button.grid(row=2, column=0, columnspan=2, pady=(8, 16))
         
+    def get_inputs(self) -> Tuple[str, int]:
+        item = self.item_entry.get()
+        price = self.price_entry.get()
+        
+        return item, price
+        
 
 if __name__ == '__main__':
     class Tester(CTk):
