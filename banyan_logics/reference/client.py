@@ -63,7 +63,7 @@ class Client(BanyanBase):
                 # add to bidding 
                 
         if payload['message'] == 'bidders':
-            print(f'{payload['name']}: {payload['user']} bidded ${payload['bid_amount']: 0.2f}')
+            print(f"{payload['name']}: {payload['user']} bidded ${payload['bid_amount']: 0.2f}")
         
     def prompt(self):
         while True:
