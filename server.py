@@ -33,7 +33,7 @@ class Server(BanyanBase):
                         
     def incoming_message_processing(self, topic, payload):
         if topic == 'users':
-            self.interface.window.insert(message=f"{payload['username']} is ready...", row=self.number_of_messages)
+            self.interface.window.insert(message=f"{payload['user']} is ready...", row=self.number_of_messages)
             
         self.number_of_messages += 1
         

@@ -2,6 +2,7 @@ from python_banyan.banyan_base import BanyanBase
 from gui.client.interface import ClientInterface
 from gui.client.dialogs.username_input_dialog import UsernameInputDialog
 from gui.client.dialogs.selling_input_dialog import SellingInputDialog
+from classes.user import User
 from threading import Thread
 from time import sleep
 import msgpack
@@ -16,11 +17,11 @@ class Client(BanyanBase):
         self.set_subscriber_topic('bidding')
         self.set_subscriber_topic('bidder')
         
-        self.username: str | None = None
+        self.user: User | None = None
         
         self.interface = ClientInterface()
         self.username_input_dialog = UsernameInputDialog()
-        self.username_input_dialog.accept_button.configure(command=lambda: self.set_username())
+        self.username_input_dialog.accept_button.configure(command=lambda: self.set_user())
         
         self.interface.bind("<Destroy>", self.on_destroy)
         
@@ -30,12 +31,12 @@ class Client(BanyanBase):
         self.interface.after(5, self.get_message)
         self.interface.mainloop()
             
-    def set_username(self):
-        self.username = self.username_input_dialog.name_entry.get()
+    def set_user(self):
+        self.user = User(name=self.username_input_dialog.name_entry.get())
         self.username_input_dialog.destroy()
         self.interface.deiconify()
-        self.interface.title(f'CLIENT: {self.username}')
-        self.publish_payload(payload={'username': self.username}, topic='users')
+        self.interface.title(f'CLIENT: {self.user}')
+        self.publish_payload(payload={'user': self.user.get_name()}, topic='users')
         
     def sell_button_function(self):
         dialog = SellingInputDialog(title="SELLING...") 
