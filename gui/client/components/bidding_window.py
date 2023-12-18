@@ -3,7 +3,7 @@ from customtkinter import *
 from CTkListbox import *
 
 
-class Window(CTkFrame):
+class BiddingWindow(CTkFrame):
     def __init__(self, master: any, 
                  text_label: str,
                  width: int = 400, height: int = 150, 
@@ -20,15 +20,23 @@ class Window(CTkFrame):
         self.grid_columnconfigure(0, weight=1)
         self.grid_rowconfigure((0, 1), weight=1)
         
+        self.number_of_items = 0
+        self.items_for_bidding = []
+        
         self.window_label = CTkLabel(master=self, text=f"{text_label}", justify="center")
         self.window_label.grid(row=0, column=0, pady=(8, 0))
         
-        self.list_box = CTkListbox(master=self, corner_radius=0, width=width, height=height)
-        self.list_box._scrollbar.configure(height=0)
-        self.list_box.grid(row=1, column=0, padx=8, pady=8, sticky="nsew")
+        self.listbox = CTkListbox(master=self, text_color='black', corner_radius=0, width=width, height=height)
+        self.listbox._scrollbar.configure(height=0)
+        self.listbox.grid(row=1, column=0, padx=8, pady=8, sticky="nsew")
         
-    def insert(self, message: str, row: int) -> None:
-        self.list_box.insert(index=row, option=message)
+    def insert(self, message: str) -> None:
+        self.listbox.insert(index=self.number_of_items, option=message)
+        
+        self.number_of_items += 1
+        
+    def get_item_index(self) -> int:
+        return self.listbox.curselection()
 
 
 if __name__ == '__main__':
@@ -39,7 +47,7 @@ if __name__ == '__main__':
             self.grid_columnconfigure(0, weight=1)
             self.grid_rowconfigure(0, weight=1)
             
-            self.window = Window(master=self, text_label="Item for BIDDING:")
+            self.window = BiddingWindow(master=self, text_label="Item for BIDDING:")
             self.window.grid(row=0, column=0, padx=8, pady=8)
         
         

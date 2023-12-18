@@ -23,7 +23,7 @@ class Utility(CTkFrame):
         self.button_holder = CTkFrame(master=self, fg_color="transparent")
         self.button_holder.grid(row=0, column=0, padx=(8, 0), sticky="ew")
         
-        self.bid_button = CTkButton(master=self.button_holder, width=64, text="Bid", command=lambda: self.bid_input(), state="disabled")
+        self.bid_button = CTkButton(master=self.button_holder, width=64, text="Bid", state="disabled")
         self.bid_button.grid(row=0, column=0, padx=0, pady=8)
         
         self.sell_button = CTkButton(master=self.button_holder, width=64, text="Sell", state="disabled")
@@ -35,10 +35,13 @@ class Utility(CTkFrame):
         self.timer_is_on = Event()
         
     def set_bid_button_command(self, function):
-        function()   
+        self.bid_button.configure(command=lambda: function())
         
     def set_sell_button_command(self, function):
         self.sell_button.configure(command=lambda: function())
+        
+    def set_send_message_function(self, function) -> None:
+        self.send_message = function
         
     def activate(self) -> None:
         self.bid_button.configure(state="normal")

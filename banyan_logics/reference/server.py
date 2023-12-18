@@ -19,7 +19,6 @@ class EchoServer(BanyanBase):
             self.clean_up()
             sys.exit(0)
             
-            
     def incoming_message_processing(self, topic, payload):
         """
         Process incoming messages from client
@@ -62,10 +61,7 @@ class EchoServer(BanyanBase):
             
             self.publish_payload(payload, 'user')
             # print(item.get_highest_bidder())
-            
-            
-            
-            
+                 
     def match_user(self, id):
         for user in UserServer.USERS_LIST:
             if id == user.get_id():

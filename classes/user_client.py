@@ -6,7 +6,6 @@ class UserClient:
     def __repr__(self) -> str:
         return self.get_name()
 
-        
     def __str__(self) -> str:
         return self.get_name()
     

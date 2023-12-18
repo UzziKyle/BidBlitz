@@ -1,6 +1,8 @@
 from typing import Optional, Tuple, Union
 from .components.utility import Utility
-from .components.window import Window
+from .components.bidding_window import BiddingWindow
+from .components.selling_window import SellingWindow
+from .components.bidder_window import BidderWindow
 from customtkinter import *
 
         
@@ -17,13 +19,13 @@ class ClientInterface(CTk):
         self.utility = Utility(master=self)
         self.utility.grid(row=0, column=0, padx=8, pady=(8, 0), sticky="nsew")
         
-        self.bidding_window = Window(master=self, text_label="Items for BIDDING:")
+        self.bidding_window = BiddingWindow(master=self, text_label="Items for BIDDING:")
         self.bidding_window.grid(row=1, column=0, padx=8, pady=(8, 0), sticky="nsew")
         
-        self.selling_window = Window(master=self, text_label="Items you are SELLING:")
+        self.selling_window = SellingWindow(master=self, text_label="Items you are SELLING:")
         self.selling_window.grid(row=2, column=0, padx=8, pady=0, sticky="nsew")
         
-        self.bidder_window = Window(master=self, text_label="Highest BIDDER:")
+        self.bidder_window = BidderWindow(master=self, text_label="Highest BIDDER:")
         self.bidder_window.grid(row=3, column=0, padx=8, pady=(0, 8), sticky="nsew")
                 
         

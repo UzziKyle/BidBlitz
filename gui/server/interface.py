@@ -7,7 +7,7 @@ from threading import Thread, Event
 
         
 class ServerInterface(CTk):
-    def __init__(self, publish_payload, fg_color: str | Tuple[str, str] | None = None, **kwargs):
+    def __init__(self, fg_color: str | Tuple[str, str] | None = None, **kwargs):
         super().__init__(fg_color, **kwargs)
         
         self.title('SERVER')
@@ -18,7 +18,7 @@ class ServerInterface(CTk):
         self.grid_columnconfigure(0, weight=1)
         self.grid_rowconfigure(1, weight=1)
         
-        self.publish_payload = publish_payload
+        self.send_message = None
         
         self.timer = CTkLabel(master=self, text=f"Time Left: 00:00:00")
         self.timer.grid(row=0, column=0, padx=8, pady=8, sticky="e")
@@ -36,7 +36,9 @@ class ServerInterface(CTk):
         # self.countdown_setter.stop_button.configure(command=lambda: self.stop_countdown())
         
     def start_button_functions(self):
-        self.publish_payload(payload={"temp": self.countdown_setter.get()}, topic="timer")  # Sends signal to the clients
+        self.window.insert(message=f'Server started...')
+        
+        self.send_message(payload={"message": "timer", "temp": self.countdown_setter.get()}, topic="user")  # Sends signal to clients
         
         Thread(target=self.start_countdown).start()
         
@@ -65,10 +67,14 @@ class ServerInterface(CTk):
             temp -= 1     
             
         self.timer_is_on.clear()
+        self.send_message(payload={'message': 'timer'}, topic='server')
                         
     # def stop_countdown(self):
     #     self.timer_is_on.clear()
     #     self.timer.configure(text=f"Time Left: 00:00:00")
+    
+    def set_send_message_function(self, function) -> None:
+        self.send_message = function
                        
         
 if __name__ == '__main__':

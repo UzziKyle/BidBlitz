@@ -12,12 +12,15 @@ class Window(CTkScrollableFrame):
                  border_color: str | Tuple[str, str] | None = None, 
                  background_corner_colors: Tuple[str | Tuple[str, str]] | None = None, 
                  overwrite_preferred_drawing_method: str | None = None, **kwargs):
-        
         super().__init__(master, width, height, corner_radius, border_width, bg_color, fg_color, border_color, background_corner_colors, overwrite_preferred_drawing_method, **kwargs)
         
-    def insert(self, message: str, row: int) -> None:
+        self.number_of_messages = 0
+        
+    def insert(self, message: str) -> None:
         new_message = CTkLabel(master=self, text=message)
-        new_message.grid(row=row, column=0, padx=8, sticky='w')
+        new_message.grid(row=self.number_of_messages, column=0, padx=0, sticky='w')
+        
+        self.number_of_messages += 1
 
 
 if __name__ == '__main__':
