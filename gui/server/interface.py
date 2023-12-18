@@ -68,10 +68,6 @@ class ServerInterface(CTk):
             
         self.timer_is_on.clear()
         self.send_message(payload={'message': 'timer'}, topic='server')
-                        
-    # def stop_countdown(self):
-    #     self.timer_is_on.clear()
-    #     self.timer.configure(text=f"Time Left: 00:00:00")
     
     def set_send_message_function(self, function) -> None:
         self.send_message = function

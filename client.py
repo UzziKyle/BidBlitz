@@ -69,10 +69,10 @@ class Client(BanyanBase):
                 self.interface.selling_window.insert(payload=payload)
                 
         if payload['message'] == 'bidders':
-            self.interface.bidder_window.insert(message=f"{payload['name']}: {payload['user']} bidded PHP{payload['bid_amount']: 0.2f}")
+            self.interface.bidder_window.insert(message=f"{payload['name']}: {payload['user']} bidded PHP{payload['bid_amount']: ,.2f}")
             
         if payload['message'] == 'winner':
-            self.interface.bidder_window.insert(message=f"{payload['name']}: {payload['winner']} - PHP{payload['bid_amount']: 0.2f} ** WINNER **")
+            self.interface.bidder_window.insert(message=f"{payload['name']}: {payload['winner']} - PHP{payload['bid_amount']: ,.2f} ** WINNER **")
             
                                             
     def set_user(self):

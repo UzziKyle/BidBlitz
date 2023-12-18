@@ -54,7 +54,7 @@ class Server(BanyanBase):
             self.publish_payload(payload, 'user')
 
             # display on GUI
-            self.interface.window.insert(message=f"Selling: {item_name} PHP {price: 0.2F} [{payload['user']}]")
+            self.interface.window.insert(message=f"Selling: {item_name} PHP {price: ,.2f} [{payload['user']}]")
             
         if payload['message'] == 'bid':
             # assigning variables
@@ -70,7 +70,7 @@ class Server(BanyanBase):
             self.publish_payload(payload, 'user')
             
             # display on GUI
-            self.interface.window.insert(message=f"Bidding: {item_name} PHP {bid_amount: 0.2f} [{bidder_name}]")
+            self.interface.window.insert(message=f"Bidding: {item_name} PHP {bid_amount: ,.2f} [{bidder_name}]")
             
         if payload['message'] == 'timer':
             for item in Item.ITEMS_LIST:
