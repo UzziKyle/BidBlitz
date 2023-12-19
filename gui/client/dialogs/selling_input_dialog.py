@@ -26,6 +26,14 @@ class SellingInputDialog(CTkToplevel):
         self.submit_button = CTkButton(master=self, width=80, text="Accept", corner_radius=0, command=lambda: self.submit_button_func())
         self.submit_button.grid(row=2, column=0, columnspan=2, pady=(8, 16))
         
+        self.set_active()
+                
+    def set_active(self):
+        self.lift()
+        self.focus_force()
+        self.grab_set()
+        self.grab_release()
+        
     def get_inputs(self) -> Tuple[str, int | float]:
         try:
             item = self.item_entry.get()
