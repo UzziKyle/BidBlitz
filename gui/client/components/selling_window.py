@@ -29,11 +29,7 @@ class SellingWindow(CTkFrame):
         self.display._scrollbar.configure(height=0)
         self.display.grid(row=1, column=0, padx=8, pady=8, sticky="nsew")
         
-    def insert(self, payload: dict) -> None:
-        item = payload['name']
-        price = payload['price']
-        message = f'{item} PHP {price: 0.2f}'
-        
+    def insert(self, message: str) -> None:        
         text = CTkLabel(master=self.display, text=message)
         text.grid(row=self.number_of_items, column=0, padx=4, sticky='w')
         

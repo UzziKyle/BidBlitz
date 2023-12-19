@@ -6,16 +6,24 @@ class UsernameInputDialog(CTkToplevel):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         
-        self.title("ENTER YOUR NAME")
-
+        self.title("CLIENT")
+        
         self.name_label = CTkLabel(master=self, text="Name:")
         self.name_label.grid(row=0, column=0, padx=(16, 8), pady=16)
         
-        self.name_entry = CTkEntry(master=self, width=160, placeholder_text="Enter your name here...")
+        self.name_entry = CTkEntry(master=self, width=160)
         self.name_entry.grid(row=0, column=1, padx=(0, 8), pady=16)
         
         self.accept_button = CTkButton(master=self, width=64, text="Accept")
         self.accept_button.grid(row=0, column=2, padx=(0, 16), pady=16)
+        
+        self.set_active()
+                
+    def set_active(self):
+        self.lift()
+        self.focus_force()
+        self.grab_set()
+        self.grab_release()
         
 
 if __name__ == '__main__':

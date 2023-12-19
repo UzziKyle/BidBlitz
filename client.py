@@ -3,6 +3,7 @@ from gui.client.interface import ClientInterface
 from gui.client.dialogs.username_input_dialog import UsernameInputDialog
 from gui.client.dialogs.selling_input_dialog import SellingInputDialog
 from gui.client.dialogs.bidding_input_dialog import BiddingInputDialog
+from gui.client.dialogs.winner_dialog import WinnerDialog
 from classes.user_client import UserClient
 from threading import Thread
 from time import sleep
@@ -22,8 +23,6 @@ class Client(BanyanBase):
         self.items_for_bidding = []
         
         self.interface = ClientInterface()
-        self.username_input_dialog = UsernameInputDialog()
-        self.username_input_dialog.accept_button.configure(command=lambda: self.set_user())
         
         self.interface.bind("<Destroy>", self.on_destroy)
         
@@ -32,6 +31,9 @@ class Client(BanyanBase):
         
         self.interface.utility.set_send_message_function(function=self.publish_payload)
                 
+        self.username_input_dialog = UsernameInputDialog()
+        self.username_input_dialog.accept_button.configure(command=lambda: self.set_user())
+        
         self.interface.withdraw()
         self.interface.after(5, self.get_message)
         self.interface.mainloop()
@@ -61,20 +63,23 @@ class Client(BanyanBase):
         if payload['message'] == 'new_item':
             if payload['user_id'] != self.user.get_id():
                 self.items_for_bidding.append({'item': payload['name'], 'bid_amount': 0})
-                self.interface.bidding_window.insert(message=f"{payload['name']} [{payload['user']}]")
-                # add to bidding 
+                self.interface.bidding_window.insert(message=f"{payload['name']} [{payload['user']}] - PHP {payload['price']: ,.2f}")
                 
             else: 
                 self.items_sold.append({'item': payload['name'], 'bid_amount': 0})
-                self.interface.selling_window.insert(payload=payload)
+                
+                item = payload['name']
+                price = payload['price']
+                message = f'{item} PHP {price: ,.2f}'
+                
+                self.interface.selling_window.insert(message=message)
                 
         if payload['message'] == 'bidders':
             self.interface.bidder_window.insert(message=f"{payload['name']}: {payload['user']} bidded PHP{payload['bid_amount']: ,.2f}")
             
         if payload['message'] == 'winner':
-            self.interface.bidder_window.insert(message=f"{payload['name']}: {payload['winner']} - PHP{payload['bid_amount']: ,.2f} ** WINNER **")
-            
-                                            
+            WinnerDialog(payload=payload)
+                                                  
     def set_user(self):
         # assign user to this client
         self.user = UserClient(name=self.username_input_dialog.name_entry.get())
@@ -87,10 +92,10 @@ class Client(BanyanBase):
         # add user to server
         self.publish_payload(payload={'message': 'user_creation', 'user': self.user.get_name()}, topic='server')
         
-    def sell(self):
+    def sell(self) -> None:
         SellingInputDialog(title="SELLING...", payload={'message': 'sell', 'name': '', 'price': 0, 'user': self.user.get_name(), 'user_id': self.user.get_id()}, topic='server', send_message=self.publish_payload) 
         
-    def bid(self):
+    def bid(self) -> None:
         try:
             item_idx = self.interface.bidding_window.get_item_index()
             
@@ -99,9 +104,9 @@ class Client(BanyanBase):
             BiddingInputDialog(title='BIDDING', payload={'message': 'bid', 'name': item['item'], 'bid_amount': 0, 'user': self.user.get_name(), 'user_id': self.user.get_id()}, topic='server', send_message=self.publish_payload)
             
         except:
-            pass
+            pass        
             
-    def on_destroy(self, event):
+    def on_destroy(self, event) -> None:
         if event.widget != self.interface:
             return
         

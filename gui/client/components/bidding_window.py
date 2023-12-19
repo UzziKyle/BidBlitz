@@ -26,8 +26,8 @@ class BiddingWindow(CTkFrame):
         self.window_label = CTkLabel(master=self, text=f"{text_label}", justify="center")
         self.window_label.grid(row=0, column=0, pady=(8, 0))
         
-        self.listbox = CTkListbox(master=self, text_color='black', corner_radius=0, width=width, height=height)
-        self.listbox._scrollbar.configure(height=0)
+        self.listbox = CTkListbox(master=self, corner_radius=0, width=width, height=height, border_width=2, text_color=('black', 'white'))
+        self.listbox._scrollbar.configure(height=0, width=16)
         self.listbox.grid(row=1, column=0, padx=8, pady=8, sticky="nsew")
         
     def insert(self, message: str) -> None:

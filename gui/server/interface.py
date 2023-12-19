@@ -14,6 +14,7 @@ class ServerInterface(CTk):
         self.geometry('375x500')
         self.minsize(width=375, height=250)
         set_appearance_mode('System')
+        set_default_color_theme('assets/themes/coffee.json')                
         
         self.grid_columnconfigure(0, weight=1)
         self.grid_rowconfigure(1, weight=1)
