@@ -3,10 +3,10 @@ from customtkinter import *
 
 
 class CountdownSetter(CTkFrame):
-    def __init__(self, master: any, 
+    def __init__(self, master: any, font: any, 
                  width: int = 200, height: int = 200, 
                  corner_radius: int | str | None = 0, 
-                 border_width: int | str | None = None, 
+                 border_width: int | str | None = 0, 
                  bg_color: str | Tuple[str, str] = "transparent", 
                  fg_color: str | Tuple[str, str] | None = "transparent", 
                  border_color: str | Tuple[str, str] | None = None, 
@@ -17,30 +17,33 @@ class CountdownSetter(CTkFrame):
                 
         # self.grid_columnconfigure(list(range(6)), weight=1)
         self.grid_rowconfigure(0, weight=1)
+        self.grid_columnconfigure((0, 1, 2, 3, 4), weight=1)
+        
+        self.font_general, self.font_buttons = font
 
         self.hour = StringVar( value="00")
         self.minute = StringVar(value="00")
         self.second = StringVar(value="00")
         
-        self.timer_label = CTkLabel(master=self, text=f"Countdown:")
-        self.timer_label.grid(row=0, column=0, padx=(8, 0), pady=8, sticky="ew")
+        self.timer_label = CTkLabel(master=self, text=f"Countdown:", font=self.font_general)
+        self.timer_label.grid(row=0, column=0, padx=(8, 0), pady=8, sticky="e")
         
-        self.hour_entry = CTkEntry(master=self, width=32, textvariable=self.hour, justify="center")
+        self.hour_entry = CTkEntry(master=self, width=32, textvariable=self.hour, justify="center", font=self.font_general)
         self.hour_entry.grid(row=0, column=1, padx=(8, 0), pady=8, sticky="ew")
         
-        self.colon1_label = CTkLabel(master=self, text=f":")
+        self.colon1_label = CTkLabel(master=self, text=f":", font=self.font_general)
         self.colon1_label.grid(row=0, column=2, padx=(4,0), pady=8, sticky="ew")
         
-        self.minute_entry = CTkEntry(master=self, width=32, textvariable=self.minute, justify="center")
+        self.minute_entry = CTkEntry(master=self, width=32, textvariable=self.minute, justify="center", font=self.font_general)
         self.minute_entry.grid(row=0, column=3, padx=(4, 0), pady=8, sticky="ew")
         
-        self.colon2_label = CTkLabel(master=self, text=f":")
+        self.colon2_label = CTkLabel(master=self, text=f":", font=self.font_general)
         self.colon2_label.grid(row=0, column=4, padx=(4, 0), pady=8, sticky="ew")
         
-        self.second_entry = CTkEntry(master=self, width=32, textvariable=self.second, justify="center")
+        self.second_entry = CTkEntry(master=self, width=32, textvariable=self.second, justify="center", font=self.font_general)
         self.second_entry.grid(row=0, column=5, padx=(4, 0), pady=8, sticky="ew")
         
-        self.start_button = CTkButton(master=self, width=64, text="Start")
+        self.start_button = CTkButton(master=self, width=64, height=32, text="Start", font=self.font_buttons)
         self.start_button.grid(row=0, column=6, padx=(16, 0), pady=8, sticky="ew")
         
         # self.stop_button = CTkButton(master=self, width=64, text="Stop")

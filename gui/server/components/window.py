@@ -3,7 +3,7 @@ from customtkinter import *
 
 
 class Window(CTkScrollableFrame):
-    def __init__(self, master: any, 
+    def __init__(self, master: any, font: any,
                  width: int = 200, height: int = 200, 
                  corner_radius: int | str | None = 0, 
                  border_width: int | str | None = None, 
@@ -14,11 +14,13 @@ class Window(CTkScrollableFrame):
                  overwrite_preferred_drawing_method: str | None = None, **kwargs):
         super().__init__(master, width, height, corner_radius, border_width, bg_color, fg_color, border_color, background_corner_colors, overwrite_preferred_drawing_method, **kwargs)
         
+        self.font_general, self.font_buttons = font
+        
         self.number_of_messages = 0
         
     def insert(self, message: str) -> None:
-        new_message = CTkLabel(master=self, text=message)
-        new_message.grid(row=self.number_of_messages, column=0, padx=0, sticky='w')
+        new_message = CTkLabel(master=self, text=message, font=self.font_general)
+        new_message.grid(row=self.number_of_messages, column=0, padx=8, pady=2, sticky='w')
         
         self.number_of_messages += 1
 

@@ -82,6 +82,9 @@ class Server(BanyanBase):
             payload['bids'] = []
             
             for data in Item.ITEMS_LIST:
+                if data.get_highest_bidder() == None:
+                    continue
+                
                 item = data.get_name()
                 winner, bid = data.get_highest_bidder()
                 payload['items'].append(item)

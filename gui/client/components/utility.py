@@ -18,13 +18,14 @@ class Utility(CTkFrame):
         
         super().__init__(master, width, height, corner_radius, border_width, bg_color, fg_color, border_color, background_corner_colors, overwrite_preferred_drawing_method, **kwargs)
         
+        self.font_heading = CTkFont(family='Monospac821 BT', size=18, weight='bold')
         self.font_general, self.font_buttons = font
                 
-        self.grid_columnconfigure((0, 1), weight=1)
+        self.grid_columnconfigure((0, 1, 2), weight=1)
         self.grid_rowconfigure(0, weight=1)
         
         self.button_holder = CTkFrame(master=self, fg_color="transparent")
-        self.button_holder.grid(row=0, column=0, padx=(8, 0), pady=8, sticky="ew")
+        self.button_holder.grid(row=0, column=0, padx=8, pady=8, sticky="w")
         self.button_holder.grid_rowconfigure(0, weight=1)
         
         self.bid_button = CTkButton(master=self.button_holder, width=64, text="Bid", state="disabled", font=self.font_buttons)
@@ -33,8 +34,11 @@ class Utility(CTkFrame):
         self.sell_button = CTkButton(master=self.button_holder, width=64, text="Sell", state="disabled", font=self.font_buttons)
         self.sell_button.grid(row=0, column=1, padx=(8, 0))
         
+        self.app_name = CTkLabel(master=self, text=f"BidBlitz", anchor="center", font=self.font_heading)
+        self.app_name.grid(row=0, column=1, pady=8, sticky="ew")  
+              
         self.timer = CTkLabel(master=self, text=f"Time Left: 00:00:00", font=self.font_general)
-        self.timer.grid(row=0, column=1, padx=8,pady=8, sticky="e")
+        self.timer.grid(row=0, column=2, padx=8, pady=8, sticky="e")
         
         self.timer_is_on = Event()
         

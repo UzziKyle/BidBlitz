@@ -4,7 +4,7 @@ from CTkListbox import *
 
 
 class BidderWindow(CTkFrame):
-    def __init__(self, master: any, 
+    def __init__(self, master: any, font: any,
                  text_label: str,
                  width: int = 400, height: int = 150, 
                  corner_radius: int | str | None = 0):
@@ -14,9 +14,12 @@ class BidderWindow(CTkFrame):
         self.grid_columnconfigure(0, weight=1)
         self.grid_rowconfigure(1, weight=1)
         
+        self.font_general, self.font_buttons = font
+        self.font_list_item = CTkFont(family='Monospac821 BT', size=12)
+
         self.number_of_items = 0
         
-        self.window_label = CTkLabel(master=self, text=f"{text_label}", justify="center")
+        self.window_label = CTkLabel(master=self, text=f"{text_label}", justify="center", font=self.font_general)
         self.window_label.grid(row=0, column=0, pady=(8, 0))
         
         self.display = CTkScrollableFrame(master=self, corner_radius=0, width=width, height=height)
@@ -24,7 +27,7 @@ class BidderWindow(CTkFrame):
         self.display.grid(row=1, column=0, padx=8, pady=8, sticky="nsew")
         
     def insert(self, message: str) -> None:       
-        text = CTkLabel(master=self.display, text=message)
+        text = CTkLabel(master=self.display, text=message, font=self.font_list_item)
         text.grid(row=self.number_of_items, column=0, padx=4, sticky='w')
         
         self.number_of_items += 1

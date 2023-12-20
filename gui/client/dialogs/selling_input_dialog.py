@@ -11,7 +11,9 @@ class SellingInputDialog(CTkToplevel):
         self.topic = topic
         self.send_message = send_message
         
-        self.title_label = CTkLabel(master=self, text="SELL", font=('roboto', 24, 'bold'))
+        self.heading_font = CTkFont(family='roboto', size=24, weight='bold')
+        
+        self.title_label = CTkLabel(master=self, text="SELL", font=self.heading_font)
         self.title_label.grid(row=0, column=0, padx=16, pady=12)
         
         self.item_label = CTkLabel(master=self, text="Item:")

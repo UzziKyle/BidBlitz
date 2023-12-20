@@ -7,7 +7,7 @@ class UsernameInputDialog(CTkToplevel):
         super().__init__(*args, **kwargs)
         
         self.title("CLIENT")
-        
+                
         self.name_label = CTkLabel(master=self, text="Name:")
         self.name_label.grid(row=0, column=0, padx=(16, 8), pady=16)
         
