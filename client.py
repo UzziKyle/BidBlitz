@@ -49,6 +49,7 @@ class Client(BanyanBase):
         self.interface.utility.set_send_message_function(function=self.publish_payload)
                 
         self.username_input_dialog = UsernameInputDialog()
+        self.username_input_dialog.name_entry.bind('<Return>', self.set_user)
         self.username_input_dialog.accept_button.configure(command=lambda: self.set_user())
         
         self.interface.withdraw()
@@ -97,17 +98,26 @@ class Client(BanyanBase):
         if payload['message'] == 'winner':
             WinnerDialog(payload=payload)
                                                   
-    def set_user(self):
-        # assign user to this client
-        self.user = UserClient(name=self.username_input_dialog.name_entry.get())
+    def set_user(self, event = None):
+        try:
+            # assign user to this client
+            name = self.username_input_dialog.name_entry.get()
+            
+            if name == '':
+                raise
+            
+            self.user = UserClient(name=name)
+            
+            self.username_input_dialog.destroy()
+            
+            self.interface.deiconify()
+            self.interface.title(f'CLIENT: {self.user}')
+            
+            # add user to server
+            self.publish_payload(payload={'message': 'user_creation', 'user': self.user.get_name()}, topic='server')
         
-        self.username_input_dialog.destroy()
-        
-        self.interface.deiconify()
-        self.interface.title(f'CLIENT: {self.user}')
-        
-        # add user to server
-        self.publish_payload(payload={'message': 'user_creation', 'user': self.user.get_name()}, topic='server')
+        except:
+            pass
         
     def sell(self) -> None:
         SellingInputDialog(title="SELLING...", payload={'message': 'sell', 'name': '', 'price': 0, 'user': self.user.get_name(), 'user_id': self.user.get_id()}, topic='server', send_message=self.publish_payload) 

@@ -22,12 +22,14 @@ class SellingInputDialog(CTkToplevel):
         
         self.item_entry = CTkEntry(master=self, width=180, placeholder_text="Enter item here...", font=self.item_font)
         self.item_entry.grid(row=1, column=1, padx=(0, 16), pady=(10, 10))
+        self.item_entry.bind('<Return>', self.focus_on_price_entry)
 
         self.price_label = CTkLabel(master=self, text="Price:", font=self.item_font)
         self.price_label.grid(row=2, column=0, padx=(16, 8), pady=8, sticky='w')
         
         self.price_entry = CTkEntry(master=self, width=180, placeholder_text="Enter price here...", font=self.item_font)
         self.price_entry.grid(row=2, column=1, padx=(0, 16), pady=8)
+        self.price_entry.bind('<Return>', self.submit_button_func)
         
         self.submit_button = CTkButton(master=self, width=80, text="Accept", command=lambda: self.submit_button_func(), corner_radius=4, font=self.item_font)
         self.submit_button.grid(row=3, column=0, columnspan=2, pady=(8, 16))
@@ -39,6 +41,9 @@ class SellingInputDialog(CTkToplevel):
         self.focus_force()
         self.grab_set()
         self.grab_release()
+        
+    def focus_on_price_entry(self, event):
+        self.price_entry.focus_set()
         
     def get_inputs(self) -> Tuple[str, int | float]:
         try:
@@ -53,19 +58,19 @@ class SellingInputDialog(CTkToplevel):
         except:
             pass
         
-    def submit_button_func(self):
-        item, price = self.get_inputs()
-        
-        self.payload['name'] = item
-        self.payload['price'] = price
-        
-        self.send_message(payload=self.payload, topic=self.topic)
-        
-        self.destroy()
-        
-        
-        
-        
+    def submit_button_func(self, event=None):
+        try:
+            item, price = self.get_inputs()
+            
+            self.payload['name'] = item
+            self.payload['price'] = price
+            
+            self.send_message(payload=self.payload, topic=self.topic)
+            
+            self.destroy()
+            
+        except: 
+            pass       
         
 
 if __name__ == '__main__':
@@ -79,6 +84,5 @@ if __name__ == '__main__':
         
         
     app = Tester()
-    
     app.mainloop()
     

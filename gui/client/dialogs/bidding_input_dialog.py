@@ -11,10 +11,10 @@ class BiddingInputDialog(CTkToplevel):
         self.payload = payload
         self.topic = topic
         self.send_message = send_message
+        
         self.title_font = CTkFont(family="Monospac821 BT", size=20, weight="bold")
         self.title_label = CTkLabel(master=self, text=title, anchor="center", font=self.title_font)
         self.title_label.grid(row=0, column=0, columnspan=3, pady=(15,0), sticky='ew')
-        
 
         self.item_font = CTkFont(family="Monospac821 BT", size=14, weight="normal")
         self.item_label = CTkLabel(master=self, text=f"Amount:", font=self.item_font)
@@ -22,6 +22,7 @@ class BiddingInputDialog(CTkToplevel):
         
         self.bid_entry = CTkEntry(master=self, width=200, placeholder_text="Enter amount here...", font=self.item_font)
         self.bid_entry.grid(row=1, column=1, padx=(0, 16), pady=12)
+        self.bid_entry.bind('<Return>', self.submit_button_func)
         
         self.submit_button = CTkButton(master=self, width=80, text="Accept", command=lambda: self.submit_button_func(), corner_radius=4, font=self.item_font)
         self.submit_button.grid(row=1, column=2, padx=(0, 32), pady=16)
@@ -33,7 +34,7 @@ class BiddingInputDialog(CTkToplevel):
         self.focus_force()
         self.grab_set()
         self.grab_release()
-        
+                
     def get_input(self) -> int:
         try:
             bid_amount = int(self.bid_entry.get())
@@ -46,14 +47,21 @@ class BiddingInputDialog(CTkToplevel):
         except:
             pass
         
-    def submit_button_func(self):
-        bid_amount = self.get_input()
+    def submit_button_func(self, event = None):
+        try: 
+            bid_amount = self.get_input()
+            
+            if not bid_amount:
+                raise
+            
+            self.payload['bid_amount'] = bid_amount
+            
+            self.send_message(payload=self.payload, topic=self.topic)
+            
+            self.destroy()
         
-        self.payload['bid_amount'] = bid_amount
-        
-        self.send_message(payload=self.payload, topic=self.topic)
-        
-        self.destroy()
+        except:
+            pass
         
 
 if __name__ == '__main__':
