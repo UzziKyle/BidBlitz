@@ -135,7 +135,6 @@ def cmd_client():
 
     Client(**kw_options)
     
-
 def signal_handler(sig, frame):
     raise KeyboardInterrupt
 
