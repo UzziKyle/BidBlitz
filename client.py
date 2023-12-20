@@ -151,7 +151,6 @@ def cmd_client():
         args.back_plane_ip_address = None
         
     kw_options= {'back_plane_ip_address': args.back_plane_ip_address,
-                    'user': args.user,
                     'publisher_port': args.publisher_port,
                     'subscriber_port': args.subscriber_port,
                     'process_name': args.process_name,
