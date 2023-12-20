@@ -8,6 +8,8 @@ class WinnerDialog(CTkToplevel):
         
         self.title('WINNERS')
         self.minsize(width=300, height=300)
+        self.maxsize(width=900, height=900)
+        self.set_font = CTkFont(family="Monospac821 BT", size=14, weight="normal")
         
         self.grid_columnconfigure(0, weight=1)
         self.grid_rowconfigure(0, weight=1)
@@ -21,7 +23,7 @@ class WinnerDialog(CTkToplevel):
         self.scrollable_frame.grid(row=0, column=0, padx=4, pady=4, sticky='nsew')
         
         for idx, winner in enumerate(self.winners):
-            CTkLabel(master=self.scrollable_frame, text=f"{self.items[idx]}: {winner} - PHP{self.bids[idx]: ,.2f}").grid(row=idx, column=0, padx=4, sticky='w')
+            CTkLabel(master=self.scrollable_frame, text=f"{self.items[idx]}: {winner} - PHP{self.bids[idx]: ,.2f}", font=self.set_font).grid(row=idx, column=0, padx=4, sticky='w')
             
         self.set_active()
                 

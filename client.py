@@ -118,7 +118,7 @@ class Client(BanyanBase):
             
             item = self.items_for_bidding[item_idx]
             
-            BiddingInputDialog(title='BIDDING', payload={'message': 'bid', 'name': item['item'], 'bid_amount': 0, 'user': self.user.get_name(), 'user_id': self.user.get_id()}, topic='server', send_message=self.publish_payload)
+            BiddingInputDialog(title=item['item'], payload={'message': 'bid', 'name': item['item'], 'bid_amount': 0, 'user': self.user.get_name(), 'user_id': self.user.get_id()}, topic='server', send_message=self.publish_payload)
             
         except:
             pass        

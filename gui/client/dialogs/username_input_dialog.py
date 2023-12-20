@@ -7,14 +7,16 @@ class UsernameInputDialog(CTkToplevel):
         super().__init__(*args, **kwargs)
         
         self.title("CLIENT")
+        self.resizable(width=False, height=False)
         
-        self.name_label = CTkLabel(master=self, text="Name:")
+        self.set_font = CTkFont(family="Monospac821 BT", size=14, weight="normal")
+        self.name_label = CTkLabel(master=self, text="Name:", font=self.set_font)
         self.name_label.grid(row=0, column=0, padx=(16, 8), pady=16)
         
         self.name_entry = CTkEntry(master=self, width=160)
         self.name_entry.grid(row=0, column=1, padx=(0, 8), pady=16)
         
-        self.accept_button = CTkButton(master=self, width=64, text="Accept")
+        self.accept_button = CTkButton(master=self, width=64, text="Accept", font=self.set_font)
         self.accept_button.grid(row=0, column=2, padx=(0, 16), pady=16)
         
         self.set_active()
