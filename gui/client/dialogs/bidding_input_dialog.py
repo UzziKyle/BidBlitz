@@ -20,6 +20,14 @@ class BiddingInputDialog(CTkToplevel):
         self.submit_button = CTkButton(master=self, width=80, text="Accept", command=lambda: self.submit_button_func(), corner_radius=0)
         self.submit_button.grid(row=0, column=2, padx=(0, 32), pady=32)
         
+        self.set_active()
+                
+    def set_active(self):
+        self.lift()
+        self.focus_force()
+        self.grab_set()
+        self.grab_release()
+        
     def get_input(self) -> int:
         try:
             bid_amount = int(self.bid_entry.get())

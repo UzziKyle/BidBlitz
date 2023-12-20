@@ -76,8 +76,7 @@ class Server(BanyanBase):
             payload = {}
             payload['message'] = 'winner'
             payload['items'] = [item.get_name() for item in Item.ITEMS_LIST]
-            payload['winners'] = [item.get_highest_bidder()[0] for item in Item.ITEMS_LIST]
-            payload['bids'] = [item.get_highest_bidder()[1] for item in Item.ITEMS_LIST]
+            payload['winners'] = [item.get_highest_bidder()for item in Item.ITEMS_LIST]
             
             self.publish_payload(payload=payload, topic='user')
                     

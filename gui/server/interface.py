@@ -7,8 +7,8 @@ from threading import Thread, Event
 
         
 class ServerInterface(CTk):
-    def __init__(self, fg_color: str | Tuple[str, str] | None = None, **kwargs):
-        super().__init__(fg_color, **kwargs)
+    def __init__(self):
+        super().__init__()
         
         self.title('SERVER')
         self.geometry('375x500')
