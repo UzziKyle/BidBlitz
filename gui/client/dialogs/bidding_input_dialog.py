@@ -7,7 +7,9 @@ class BiddingInputDialog(CTkToplevel):
         super().__init__(*args, **kwargs)
         
         self.title('')
+        self.after(250, lambda: self.iconbitmap('assets/img/bidblitz.ico'))
         self.resizable(width=False, height=False)
+        
         self.payload = payload
         self.topic = topic
         self.send_message = send_message

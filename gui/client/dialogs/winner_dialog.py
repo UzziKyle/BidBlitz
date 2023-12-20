@@ -7,6 +7,8 @@ class WinnerDialog(CTkToplevel):
         super().__init__(*args, **kwargs)
         
         self.title('WINNERS')
+        self.after(250, lambda: self.iconbitmap('assets/img/bidblitz.ico'))
+        
         self.minsize(width=300, height=300)
         self.maxsize(width=900, height=900)
         self.set_font = CTkFont(family="Monospac821 BT", size=14, weight="normal")

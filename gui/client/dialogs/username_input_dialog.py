@@ -7,7 +7,7 @@ class UsernameInputDialog(CTkToplevel):
         super().__init__(*args, **kwargs)
         
         self.title("CLIENT")
-        self.after(10, lambda: self.iconbitmap('assets/img/bidblitz.ico'))
+        self.after(250, lambda: self.iconbitmap('assets/img/bidblitz.ico'))
         self.resizable(width=False, height=False)
         
         self.set_font = CTkFont(family="Monospac821 BT", size=14, weight="normal")
