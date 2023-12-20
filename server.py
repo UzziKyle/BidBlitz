@@ -73,13 +73,26 @@ class Server(BanyanBase):
             self.interface.window.insert(message=f"Bidding: {item_name} PHP {bid_amount: ,.2f} [{bidder_name}]")
             
         if payload['message'] == 'timer':
+            self.interface.window.insert(message='')
+            
             payload = {}
             payload['message'] = 'winner'
-            payload['items'] = [item.get_name() for item in Item.ITEMS_LIST]
-            payload['winners'] = [item.get_highest_bidder()for item in Item.ITEMS_LIST]
+            payload['items'] = []
+            payload['winners'] = []
+            payload['bids'] = []
             
+            for data in Item.ITEMS_LIST:
+                item = data.get_name()
+                winner, bid = data.get_highest_bidder()
+                payload['items'].append(item)
+                payload['winners'].append(winner)
+                payload['bids'].append(bid)
+                
+                message = f'{item}: {winner} - PHP{bid: ,.2f} ** WINNER **'
+                self.interface.window.insert(message)
+        
             self.publish_payload(payload=payload, topic='user')
-                    
+                                
     def on_destroy(self, event):
         if event.widget != self.interface:
             return
