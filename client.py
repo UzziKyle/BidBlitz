@@ -7,13 +7,30 @@ from gui.client.dialogs.winner_dialog import WinnerDialog
 from classes.user_client import UserClient
 from threading import Thread
 from time import sleep
+import argparse
+import signal
 import msgpack
 import zmq
 
 
 class Client(BanyanBase):
-    def __init__(self, ):
-        super(Client, self).__init__(process_name="Client")
+    def __init__(self, **kwargs):
+        """
+        kwargs will contain the following keys:
+        
+        :param back_plane_ip_address:  banyan_base back_planeIP address
+        :param subscriber_port: banyan_base back plane subscriber port
+        :param publisher_port: banyan_base backplane
+        :param client_name: name of bidder
+        :param process_name: Component identifier
+        :param loop_time: receive loop sleep time
+        """
+        
+        super(Client, self).__init__(back_plane_ip_address=kwargs['back_plane_ip_address'],
+                                            subscriber_port=kwargs['subscriber_port'],
+                                            publisher_port=kwargs['publisher_port'],
+                                            process_name=kwargs['process_name'],
+                                            loop_time=kwargs['loop_time'])
         
         self.set_subscriber_topic('user')
         
@@ -111,8 +128,43 @@ class Client(BanyanBase):
             return
         
         self.clean_up()
-            
         
-if __name__ == '__main__':
-    Client()
+
+def cmd_client():
+    parser = argparse.ArgumentParser()
     
+    parser.add_argument("-b", dest="back_plane_ip_address", default='None', 
+                        help='None or IP address used by Back Plane')    
+
+    parser.add_argument("-n", dest="process_name", default='Client', 
+                        help='Set process name in banner')
+    parser.add_argument("-p", dest="publisher_port", default='43124', 
+                        help='Publisher IP port')
+    parser.add_argument("-s", dest="subscriber_port", default='43125', 
+                        help='Subscriber IP port')
+    parser.add_argument("-t", dest="loop_time", default='.1', 
+                        help='Event Loop Timer in seconds')    
+    
+    args = parser.parse_args()
+    
+    if args.back_plane_ip_address == 'None':
+        args.back_plane_ip_address = None
+        
+    kw_options= {'back_plane_ip_address': args.back_plane_ip_address,
+                    'user': args.user,
+                    'publisher_port': args.publisher_port,
+                    'subscriber_port': args.subscriber_port,
+                    'process_name': args.process_name,
+                    'loop_time': float(args.loop_time)}
+
+    Client(**kw_options)
+              
+def signal_handler(sig, frame):
+    raise KeyboardInterrupt
+
+signal.signal(signal.SIGINT, signal_handler)
+signal.signal(signal.SIGTERM, signal_handler)
+    
+
+if __name__ == '__main__':
+    cmd_client()
