@@ -15,6 +15,7 @@ class WinnerDialog(CTkToplevel):
         self.payload = payload
         self.items = payload['items']
         self.winners = payload['winners']
+        self.bids = payload['bids']
 
         self.scrollable_frame = CTkScrollableFrame(master=self, border_width=2, corner_radius=0)
         self.scrollable_frame.grid(row=0, column=0, padx=4, pady=4, sticky='nsew')
