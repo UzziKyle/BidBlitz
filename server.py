@@ -64,13 +64,20 @@ class Server(BanyanBase):
             item = self.match_item(item_name=item_name)
             bid_amount = payload['bid_amount']
             
-            item.add_bidder(bidder=bidder, bid_amount=payload['bid_amount'])
-   
-            payload['message'] = 'bidders' 
-            self.publish_payload(payload, 'user')
-            
-            # display on GUI
-            self.interface.window.insert(message=f"Bidding: {item_name} PHP {bid_amount: ,.2f} [{bidder_name}]")
+            try:
+                if bid_amount < item.get_highest_bidder():
+                    raise
+                
+                item.add_bidder(bidder=bidder, bid_amount=payload['bid_amount'])
+    
+                payload['message'] = 'bidders' 
+                self.publish_payload(payload, 'user')
+                
+                # display on GUI
+                self.interface.window.insert(message=f"Bidding: {item_name} PHP {bid_amount: ,.2f} [{bidder_name}]")
+                
+            except:
+                pass
             
         if payload['message'] == 'timer':
             self.interface.window.insert(message='-- WINNERS:')
