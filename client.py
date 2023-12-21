@@ -84,7 +84,7 @@ class Client(BanyanBase):
                 self.interface.bidding_window.insert(message=f"{payload['name']} [{payload['user']}] - PHP {payload['price']: ,.2f}")
                 
             else: 
-                self.items_sold.append({'item': payload['name'], 'bid_amount': 0})
+                self.items_sold.append( payload['name'])
                 
                 item = payload['name']
                 price = payload['price']

@@ -76,7 +76,6 @@ class Server(BanyanBase):
                 
             if item.get_highest_bidder():
                 highest_bidder, highest_bid = item.get_highest_bidder()
-                print(highest_bid)
                 
                 if bid_amount > highest_bid:    
                     item.add_bidder(bidder=bidder, bid_amount=payload['bid_amount'])
