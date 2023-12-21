@@ -6,7 +6,7 @@ class WinnerDialog(CTkToplevel):
     def __init__(self, payload: dict = {}, *args, **kwargs):
         super().__init__(*args, **kwargs)
         
-        self.title('WINNERS')
+        self.title('AUCTION WINNERS')
         self.after(250, lambda: self.iconbitmap('assets/img/bidblitz.ico'))
         
         self.minsize(width=300, height=300)

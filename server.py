@@ -85,8 +85,6 @@ class Server(BanyanBase):
                     
                     # display on GUI
                     self.interface.window.insert(message=f"Bidding: {item_name} PHP {bid_amount: ,.2f} [{bidder_name}]")
-                    
-                
 
             
         if payload['message'] == 'timer':
