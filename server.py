@@ -73,7 +73,7 @@ class Server(BanyanBase):
             self.interface.window.insert(message=f"Bidding: {item_name} PHP {bid_amount: ,.2f} [{bidder_name}]")
             
         if payload['message'] == 'timer':
-            self.interface.window.insert(message='')
+            self.interface.window.insert(message='-- WINNERS:')
             
             payload = {}
             payload['message'] = 'winner'
