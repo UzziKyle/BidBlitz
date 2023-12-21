@@ -4,7 +4,6 @@ from .components.bidding_window import BiddingWindow
 from .components.selling_window import SellingWindow
 from .components.bidder_window import BidderWindow
 from customtkinter import *
-from PIL import Image
 
         
 class ClientInterface(CTk):
