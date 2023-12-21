@@ -93,7 +93,8 @@ class Client(BanyanBase):
                 self.interface.selling_window.insert(message=message)
                 
         if payload['message'] == 'bidders':
-            self.interface.bidder_window.insert(message=f"{payload['name']}: {payload['user']} bidded PHP{payload['bid_amount']: ,.2f}")
+            if payload['user'] != self.user.get_name():
+                self.interface.bidder_window.insert(message=f"{payload['name']}: {payload['user']} bidded PHP{payload['bid_amount']: ,.2f}")
             
         if payload['message'] == 'winner':
             WinnerDialog(payload=payload)
