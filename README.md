@@ -33,7 +33,7 @@ Create your GUI interface using TKinter, and write a multithreaded LAN-compatibl
 2. Create a virtual environment.
 
    ```sh
-    python -m venv env
+    python -m venv .venv
    ```
 
 3. Install dependencies.
