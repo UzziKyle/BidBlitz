@@ -64,22 +64,31 @@ class Server(BanyanBase):
             item = self.match_item(item_name=item_name)
             bid_amount = payload['bid_amount']
             
-            try:
+            if not item.get_highest_bidder():
+                if bid_amount > item.get_price():
+                    item.add_bidder(bidder=bidder, bid_amount=payload['bid_amount'])
+
+                    payload['message'] = 'bidders' 
+                    self.publish_payload(payload, 'user')
+                    
+                    # display on GUI
+                    self.interface.window.insert(message=f"Bidding: {item_name} PHP {bid_amount: ,.2f} [{bidder_name}]")
+                
+            if item.get_highest_bidder():
                 highest_bidder, highest_bid = item.get_highest_bidder()
+                print(highest_bid)
                 
-                if bid_amount < highest_bid:
-                    raise
+                if bid_amount > highest_bid:    
+                    item.add_bidder(bidder=bidder, bid_amount=payload['bid_amount'])
+
+                    payload['message'] = 'bidders' 
+                    self.publish_payload(payload, 'user')
+                    
+                    # display on GUI
+                    self.interface.window.insert(message=f"Bidding: {item_name} PHP {bid_amount: ,.2f} [{bidder_name}]")
+                    
                 
-                item.add_bidder(bidder=bidder, bid_amount=payload['bid_amount'])
-    
-                payload['message'] = 'bidders' 
-                self.publish_payload(payload, 'user')
-                
-                # display on GUI
-                self.interface.window.insert(message=f"Bidding: {item_name} PHP {bid_amount: ,.2f} [{bidder_name}]")
-                
-            except:
-                pass
+
             
         if payload['message'] == 'timer':
             self.interface.window.insert(message='-- WINNERS:')
