@@ -19,7 +19,7 @@ class BiddingInputDialog(CTkToplevel):
         self.title_label.grid(row=0, column=0, columnspan=3, pady=(15,0), sticky='ew')
 
         self.item_font = CTkFont(family="Monospac821 BT", size=14, weight="normal")
-        self.item_label = CTkLabel(master=self, text=f"Amount:", font=self.item_font)
+        self.item_label = CTkLabel(master=self, text=f"Bid Price:", font=self.item_font)
         self.item_label.grid(row=1, column=0, padx=(14, 8), pady=12)
         
         self.bid_entry = CTkEntry(master=self, width=200, placeholder_text="Enter amount here...", font=self.item_font)
